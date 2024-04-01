@@ -87,7 +87,8 @@ export async function Connection(
 			fs.readFileSync("./tmp/PROT", { encoding: "utf8" }) +
 				"://" +
 				fs.readFileSync("./tmp/HOST", { encoding: "utf8" }) +
-				request.url || `http://localhost:3001${request.url}`,
+				"/gateway" +
+				request.url || `http://localhost:3001/gateway${request.url}`,
 		);
 		// @ts-ignore
 		socket.encoding = searchParams.get("encoding") || "json";

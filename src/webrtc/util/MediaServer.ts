@@ -32,12 +32,7 @@ export const PublicIP =
 	"0.0.0.0";
 
 try {
-	const range =
-		process.env.WEBRTC_PORT_RANGE ||
-		fs.readFileSync("./tmp/PORT", { encoding: "utf8" }) +
-			"-" +
-			fs.readFileSync("./tmp/PORT", { encoding: "utf8" }) ||
-		"1024-65535";
+	const range = process.env.WEBRTC_PORT_RANGE || "1024-65535";
 	var ports = range.split("-");
 	const min = Number(ports[0]);
 	const max = Number(ports[1]);

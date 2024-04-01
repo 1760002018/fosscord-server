@@ -41,7 +41,10 @@ if (fs.readFileSync("./tmp/PROT", { encoding: "utf8" }) == "https") {
 router.get("/", route(options), (req: Request, res: Response) => {
 	const { endpointPublic } = Config.get().gateway;
 	res.json({
-		url: websock || process.env.GATEWAY || "ws://localhost:3001",
+		url:
+			websock + "/gateway" ||
+			process.env.GATEWAY ||
+			"ws://localhost:3001/gateway",
 	});
 });
 
