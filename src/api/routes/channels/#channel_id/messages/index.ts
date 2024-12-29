@@ -133,11 +133,6 @@ router.get("/", async (req: Request, res: Response) => {
 	}
 
 	const messages = await Message.find(query);
-	const endpoint =
-		fs.readFileSync("./tmp/PROT", { encoding: "utf8" }) +
-			"://" +
-			fs.readFileSync("./tmp/HOST", { encoding: "utf8" }) ||
-		"http://localhost:3001";
 
 	return res.json(
 		messages.map((x: Partial<Message>) => {
@@ -159,9 +154,18 @@ router.get("/", async (req: Request, res: Response) => {
 				const uri = y.proxy_url.startsWith("http")
 					? y.proxy_url
 					: `https://example.org${y.proxy_url}`;
-				y.proxy_url = `${endpoint == null ? "" : endpoint}${
-					new URL(uri).pathname
-				}`;
+				y.proxy_url = `${
+					fs.readFileSync("./tmp/PROT", { encoding: "utf8" }) +
+						"://" +
+						fs.readFileSync("./tmp/HOST", { encoding: "utf8" }) ||
+					"http://localhost:3001" == null
+						? ""
+						: fs.readFileSync("./tmp/PROT", { encoding: "utf8" }) +
+								"://" +
+								fs.readFileSync("./tmp/HOST", {
+									encoding: "utf8",
+								}) || "http://localhost:3001"
+				}${new URL(uri).pathname}`;
 			});
 
 			/**

@@ -23,7 +23,7 @@ import {
 	VoiceIdentifySchema,
 	VoiceState,
 } from "@fosscord/util";
-import { endpoint, getClients, VoiceOPCodes, PublicIP } from "@fosscord/webrtc";
+import { endpoint, getClients, VoiceOPCodes } from "@fosscord/webrtc";
 import SemanticSDP from "semantic-sdp";
 import defaultSDP from "./sdp.json";
 

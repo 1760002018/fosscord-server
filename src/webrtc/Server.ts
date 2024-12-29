@@ -51,6 +51,7 @@ export class Server {
 
 		this.server.on("upgrade", (request, socket, head) => {
 			if (!request.url?.includes("waygate")) return;
+			if (request.url?.includes("gateway")) return;
 			this.ws.handleUpgrade(request, socket, head, (socket) => {
 				// @ts-ignore
 				socket.server = this;

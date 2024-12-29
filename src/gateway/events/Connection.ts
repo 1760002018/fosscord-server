@@ -83,27 +83,46 @@ export async function Connection(
 				socket.on(x, (y) => console.log(x, y));
 			});
 
-		const { searchParams } = new URL(
-			fs.readFileSync("./tmp/PROT", { encoding: "utf8" }) +
-				"://" +
-				fs.readFileSync("./tmp/HOST", { encoding: "utf8" }) +
-				"/gateway" +
-				request.url || `http://localhost:3001/gateway${request.url}`,
-		);
 		// @ts-ignore
-		socket.encoding = searchParams.get("encoding") || "json";
+		socket.encoding =
+			new URL(
+				fs.readFileSync("./tmp/PROT", { encoding: "utf8" }) +
+					"://" +
+					fs.readFileSync("./tmp/HOST", { encoding: "utf8" }) +
+					"/gateway" +
+					request.url ||
+					`http://localhost:3001/gateway${request.url}`,
+			).searchParams.get("encoding") || "json";
 		if (!["json", "etf"].includes(socket.encoding))
 			return socket.close(CLOSECODES.Decode_error);
 
 		if (socket.encoding === "etf" && !erlpack)
 			throw new Error("Erlpack is not installed: 'npm i erlpack'");
 
-		socket.version = Number(searchParams.get("version")) || 8;
+		socket.version =
+			Number(
+				new URL(
+					fs.readFileSync("./tmp/PROT", { encoding: "utf8" }) +
+						"://" +
+						fs.readFileSync("./tmp/HOST", { encoding: "utf8" }) +
+						"/gateway" +
+						request.url ||
+						`http://localhost:3001/gateway${request.url}`,
+				).searchParams.get("version"),
+			) || 8;
 		if (socket.version != 8)
 			return socket.close(CLOSECODES.Invalid_API_version);
 
 		// @ts-ignore
-		socket.compress = searchParams.get("compress") || "";
+		socket.compress =
+			new URL(
+				fs.readFileSync("./tmp/PROT", { encoding: "utf8" }) +
+					"://" +
+					fs.readFileSync("./tmp/HOST", { encoding: "utf8" }) +
+					"/gateway" +
+					request.url ||
+					`http://localhost:3001/gateway${request.url}`,
+			).searchParams.get("compress") || "";
 		if (socket.compress) {
 			if (socket.compress !== "zlib-stream")
 				return socket.close(CLOSECODES.Decode_error);

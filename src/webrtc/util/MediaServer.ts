@@ -26,28 +26,9 @@ import MediaServer, {
 import SemanticSDP from "semantic-sdp";
 MediaServer.enableLog(true);
 
-export const PublicIP =
-	process.env.PUBLIC_IP ||
-	fs.readFileSync("./tmp/IPv4", { encoding: "utf8" }) ||
-	"0.0.0.0";
+MediaServer.setPortRange(3001, 3001);
 
-try {
-	const range = process.env.WEBRTC_PORT_RANGE || "1024-65535";
-	var ports = range.split("-");
-	const min = Number(ports[0]);
-	const max = Number(ports[1]);
-
-	MediaServer.setPortRange(min, max);
-} catch (error) {
-	console.error(
-		"Invalid env var: WEBRTC_PORT_RANGE",
-		process.env.WEBRTC_PORT_RANGE,
-		error,
-	);
-	process.exit(1);
-}
-
-export const endpoint = MediaServer.createEndpoint(PublicIP);
+export const endpoint = MediaServer.createEndpoint("0.0.0.0");
 
 export const channels = new Map<string, Set<Client>>();
 

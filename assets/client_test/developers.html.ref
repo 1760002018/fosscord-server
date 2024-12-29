@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html class="theme-dark" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=3.0" name="viewport" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Discord Developer Portal" />
+    <meta property="og:title" content="Discord Developer Portal — API Docs for Bots and Developers" />
+    <meta
+      property="og:description"
+      content="Integrate your service with Discord — whether it's a bot or a game or whatever your wildest imagination can come up with."
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@discord" />
+    <meta name="twitter:creator" content="@discord" />
+<link rel="stylesheet" href="/assets/532.c1e7901581106ed2d853.css" integrity="sha256-hX34Xb+/GHgNyIpvTnRNMElqJNhk8LKdJJwvj//6s+c= sha512-n5Xo4sKMilgdpsJX1nmPakTCRfDGF0Yt7AepcMF25mF8yj7EzROMLB+a3449NRFTZxgDe5KAVr69QiIypyRTWw=="><link rel="icon" href="/assets/847541504914fd33810e70a0ea73177e.ico" />    <title>Discord Developer Portal</title>
+  <script async src='/cdn-cgi/bm/cv/669835187/api.js'></script></head>
+
+  <body>
+    <div id="app-mount"></div><script>window.GLOBAL_ENV = {
+      API_VERSION: 9,
+      API_ENDPOINT: '//discord.com/api',
+      WEBAPP_ENDPOINT: '//discord.com',
+      CDN_HOST: 'cdn.discordapp.com',
+
+      BRAINTREE_KEY: 'production_5st77rrc_49pp2rp4phym7387',
+      STRIPE_KEY: 'pk_live_CUQtlpQUF0vufWpnpUmQvcdi',
+      MARKETING_ENDPOINT: '//discord.com',
+      RELEASE_CHANNEL: 'stable',
+      ALGOLIA_KEY: 'aca0d7082e4e63af5ba5917d5e96bed0',
+    };</script><script src="/assets/5ebe36b40ed22fb5be8a.js" integrity="sha256-MP2pQwghkC1AQ5NGrtxmAOg1+WiA+7vs0K+CkctHFmo= sha512-GuO3qaAPXq6Z0oH4DAUQZWRGHWnufUJ0voCUeVvNNpAA6zMVvWEm9DEIrBmI8hrnVYAS1uGdYLop30RN8IIg3A=="></script><script src="/assets/2086c7c3aa4594a8e718.js" integrity="sha256-LJyvYS8vHL+3AM6vP3rjYUVGh6EQTSU139Gh53H6AbE= sha512-MqHxv5+3eKEf072bjay1Mp+3kgf8dJSGmELpk21fUOZumHCWf1t+y4j20q/39OaESsrGfHtWLNkjAoU888/rjQ=="></script><script src="/assets/839dac47751c4acf3004.js" integrity="sha256-mdhdPZi417dwJxnGUnTC3I4MTrAo8JcimYgTXR93vDk= sha512-HakW0UQRpz40Wme+akxV+R5uELmpEc/fyvDyA4umKwspGK42wIzPZzlXpACoIlV6U8ZvAJrTqBY7sN0shyk/dA=="></script>  <script type="text/javascript">(function(){window['__CF$cv$params']={r:'7248a9c5d81c9e59',m:'XkkeBg1urKRmGxCDFCqDGQfWC58GJO5fLiAs7z6BHbo-1656778348-0-AeZ/z6OhumCwaOkvqIyQlLs30wVwr+Ow4YmP1lYcgXq9aEKFNQ/XCXvSd3kQvUG/B/z/mZB07CuI+oJw85T3TjDIyfRHPR0kOuFrj8yauCdrzRMY7FxjVUTE34JZGZcV8g==',s:[0x532ac2184e,0xbe6f3c27d6],}})();</script></body>
+</html>

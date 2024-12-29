@@ -160,7 +160,6 @@ router.patch(
 		}
 
 		user.assign(body);
-		user.validate();
 		await user.save();
 
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment

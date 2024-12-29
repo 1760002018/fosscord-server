@@ -21,15 +21,12 @@ import { Payload, WebSocket } from "@fosscord/gateway";
 import { genVoiceToken } from "../util/SessionUtils";
 import { check } from "./instanceOf";
 import {
-	Config,
 	emitEvent,
-	Guild,
 	Member,
 	VoiceServerUpdateEvent,
 	VoiceState,
 	VoiceStateUpdateEvent,
 	VoiceStateUpdateSchema,
-	Region,
 } from "@fosscord/util";
 // TODO: check if a voice server is setup
 
@@ -40,6 +37,8 @@ import {
 export async function onVoiceStateUpdate(this: WebSocket, data: Payload) {
 	check.call(this, VoiceStateUpdateSchema, data.d);
 	const body = data.d as VoiceStateUpdateSchema;
+	const isNew = body.channel_id === null && body.guild_id === null;
+	let isChanged = false;
 
 	let voiceState: VoiceState;
 	try {
@@ -53,6 +52,10 @@ export async function onVoiceStateUpdate(this: WebSocket, data: Payload) {
 			//Should we also check guild_id === null?
 			//changing deaf or mute on a client that's not the one with the same session of the voicestate in the database should be ignored
 			return;
+		}
+
+		if (voiceState.channel_id !== body.channel_id) {
+			isChanged = true;
 		}
 
 		//If a user change voice channel between guild we should send a left event first
@@ -113,22 +116,7 @@ export async function onVoiceStateUpdate(this: WebSocket, data: Payload) {
 	]);
 
 	//If it's null it means that we are leaving the channel and this event is not needed
-	if (voiceState.channel_id !== null) {
-		const guild = await Guild.findOne({
-			where: { id: voiceState.guild_id },
-		});
-		const regions = Config.get().regions;
-		let guildRegion: Region;
-		if (guild && guild.region) {
-			guildRegion = regions.available.filter(
-				(r) => r.id === guild.region,
-			)[0];
-		} else {
-			guildRegion = regions.available.filter(
-				(r) => r.id === regions.default,
-			)[0];
-		}
-
+	if ((isNew || isChanged) && voiceState.channel_id !== null) {
 		await emitEvent({
 			event: "VOICE_SERVER_UPDATE",
 			data: {

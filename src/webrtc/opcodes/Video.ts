@@ -165,7 +165,7 @@ function handleSSRC(this: WebSocket, type: "audio" | "video", ssrcs: SSRCs) {
 			if (client.websocket.user_id === this.user_id) return;
 			if (!client.out.stream) return;
 
-			attachTrack.call(this, track, client.websocket.user_id);
+			attachTrack.call(client.websocket, track, this.user_id);
 		});
 	}
 }

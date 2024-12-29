@@ -21,30 +21,41 @@ import { Router, Request, Response } from "express";
 import { route } from "@fosscord/api";
 import { Config } from "@fosscord/util";
 const router = Router();
-let websock = "";
-if (fs.readFileSync("./tmp/PROT", { encoding: "utf8" }) == "https") {
-	websock = "wss://" + fs.readFileSync("./tmp/HOST", { encoding: "utf8" });
-} else if (fs.readFileSync("./tmp/PROT", { encoding: "utf8" }) == "http") {
-	websock = "ws://" + fs.readFileSync("./tmp/HOST", { encoding: "utf8" });
-} else {
-	websock = "";
-}
+
 router.get("/", route({}), async (req: Request, res: Response) => {
-	const { cdn, gateway, api } = Config.get();
-
-	const IdentityForm = {
-		cdn:
-			process.env.CDN ||
-			fs.readFileSync("./tmp/PROT", { encoding: "utf8" }) +
-				"://" +
-				fs.readFileSync("./tmp/HOST", { encoding: "utf8" }) ||
-			"http://localhost:3001",
-		gateway: websock || process.env.GATEWAY || "ws://localhost:3001",
-		defaultApiVersion: api.defaultVersion ?? 9,
-		apiEndpoint: api.endpointPublic ?? "/api",
-	};
-
-	res.json(IdentityForm);
+	const { api } = Config.get();
+	if (fs.readFileSync("./tmp/PROT", { encoding: "utf8" }) == "https") {
+		res.json({
+			cdn:
+				process.env.CDN ||
+				fs.readFileSync("./tmp/PROT", { encoding: "utf8" }) +
+					"://" +
+					fs.readFileSync("./tmp/HOST", { encoding: "utf8" }) ||
+				"http://localhost:3001",
+			gateway:
+				"wss://" +
+					fs.readFileSync("./tmp/HOST", { encoding: "utf8" }) ||
+				process.env.GATEWAY ||
+				"ws://localhost:3001",
+			defaultApiVersion: api.defaultVersion ?? 9,
+			apiEndpoint: api.endpointPublic ?? "/api",
+		});
+	} else {
+		res.json({
+			cdn:
+				process.env.CDN ||
+				fs.readFileSync("./tmp/PROT", { encoding: "utf8" }) +
+					"://" +
+					fs.readFileSync("./tmp/HOST", { encoding: "utf8" }) ||
+				"http://localhost:3001",
+			gateway:
+				"ws://" + fs.readFileSync("./tmp/HOST", { encoding: "utf8" }) ||
+				process.env.GATEWAY ||
+				"ws://localhost:3001",
+			defaultApiVersion: api.defaultVersion ?? 9,
+			apiEndpoint: api.endpointPublic ?? "/api",
+		});
+	}
 });
 
 export default router;

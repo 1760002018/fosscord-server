@@ -17,7 +17,6 @@
 */
 
 import fs from "fs";
-import { Config } from "@fosscord/util";
 import { Router, Response, Request } from "express";
 import { route, RouteOptions } from "@fosscord/api";
 
@@ -30,29 +29,41 @@ const options: RouteOptions = {
 		},
 	},
 };
-let websock = "";
-if (fs.readFileSync("./tmp/PROT", { encoding: "utf8" }) == "https") {
-	websock = "wss://" + fs.readFileSync("./tmp/HOST", { encoding: "utf8" });
-} else if (fs.readFileSync("./tmp/PROT", { encoding: "utf8" }) == "http") {
-	websock = "ws://" + fs.readFileSync("./tmp/HOST", { encoding: "utf8" });
-} else {
-	websock = "";
-}
+
 router.get("/", route(options), (req: Request, res: Response) => {
-	const { endpointPublic } = Config.get().gateway;
-	res.json({
-		url:
-			websock + "/gateway" ||
-			process.env.GATEWAY ||
-			"ws://localhost:3001/gateway",
-		shards: 1,
-		session_start_limit: {
-			total: 1000,
-			remaining: 999,
-			reset_after: 14400000,
-			max_concurrency: 1,
-		},
-	});
+	if (fs.readFileSync("./tmp/PROT", { encoding: "utf8" }) == "https") {
+		res.json({
+			url:
+				"wss://" +
+					fs.readFileSync("./tmp/HOST", { encoding: "utf8" }) +
+					"/gateway" ||
+				process.env.GATEWAY ||
+				"ws://localhost:3001/gateway",
+			shards: 1,
+			session_start_limit: {
+				total: 1000,
+				remaining: 999,
+				reset_after: 14400000,
+				max_concurrency: 1,
+			},
+		});
+	} else {
+		res.json({
+			url:
+				"ws://" +
+					fs.readFileSync("./tmp/HOST", { encoding: "utf8" }) +
+					"/gateway" ||
+				process.env.GATEWAY ||
+				"ws://localhost:3001/gateway",
+			shards: 1,
+			session_start_limit: {
+				total: 1000,
+				remaining: 999,
+				reset_after: 14400000,
+				max_concurrency: 1,
+			},
+		});
+	}
 });
 
 export default router;

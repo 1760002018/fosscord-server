@@ -40,7 +40,6 @@ import {
 	IdentifySchema,
 	DefaultUserGuildSettings,
 	UserGuildSettings,
-	ReadyGuildDTO,
 	Guild,
 	UserTokenData,
 } from "@fosscord/util";
@@ -281,12 +280,17 @@ export async function onIdentify(this: WebSocket, data: Payload) {
 		user_settings: user.settings,
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore
-		guilds: guilds.map((x: Guild & { joined_at: Date }) => {
-			return {
-				...new ReadyGuildDTO(x).toJSON(),
-				guild_hashes: {},
-				joined_at: x.joined_at,
-			};
+		guilds: guilds.map((x) => {
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			// @ts-ignore
+			x.guild_hashes = {};
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			// @ts-ignore
+			x.guild_scheduled_events = [];
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			// @ts-ignore
+			x.threads = [];
+			return x;
 		}),
 		guild_experiments: [], // TODO
 		geo_ordered_rtc_regions: [], // TODO

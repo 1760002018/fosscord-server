@@ -50,12 +50,6 @@ router.post(
 		const id = Snowflake.generate();
 		const path = `attachments/${channel_id}/${id}/${filename}`;
 
-		const endpoint =
-			fs.readFileSync("./tmp/PROT", { encoding: "utf8" }) +
-				"://" +
-				fs.readFileSync("./tmp/HOST", { encoding: "utf8" }) ||
-			"http://localhost:3001";
-
 		await storage.set(path, buffer);
 		let width;
 		let height;
@@ -67,17 +61,20 @@ router.post(
 			}
 		}
 
-		const file = {
+		return res.json({
 			id,
 			content_type: mimetype,
 			filename: filename,
 			size,
-			url: `${endpoint}/${path}`,
+			url: `${
+				fs.readFileSync("./tmp/PROT", { encoding: "utf8" }) +
+					"://" +
+					fs.readFileSync("./tmp/HOST", { encoding: "utf8" }) ||
+				"http://localhost:3001"
+			}/${path}`,
 			width,
 			height,
-		};
-
-		return res.json(file);
+		});
 	},
 );
 

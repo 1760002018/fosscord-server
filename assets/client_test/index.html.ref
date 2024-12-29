@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=3.0" name="viewport" />
+
+    <!-- section:seometa -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Discord" />
+    <meta property="og:title" content="Discord - A New Way to Chat with Friends & Communities" />
+    <meta
+      property="og:description"
+      content="Discord is the easiest way to communicate over voice, video, and text.  Chat, hang out, and stay close with your friends and communities." /><meta property="og:image" content="undefined//discord.com/assets/652f40427e1f5186ad54836074898279.png" />    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@discord" />
+    <meta name="twitter:creator" content="@discord" />
+    <!-- endsection --><script nonce="MTg4LDIzMywxMCwzOCwyMDMsMTI0LDEzMCwyNDc=">window.GLOBAL_ENV = {
+        API_ENDPOINT: '//discord.com/api',
+        API_VERSION: 9,
+        GATEWAY_ENDPOINT: 'wss://gateway.discord.gg',
+        WEBAPP_ENDPOINT: '//discord.com',
+        CDN_HOST: 'cdn.discordapp.com',
+        ASSET_ENDPOINT: '//discord.com',
+        MEDIA_PROXY_ENDPOINT: '//media.discordapp.net',
+        WIDGET_ENDPOINT: '//discord.com/widget',
+        INVITE_HOST: 'discord.gg',
+        GUILD_TEMPLATE_HOST: 'discord.new',
+        GIFT_CODE_HOST: 'discord.gift',
+        RELEASE_CHANNEL: 'stable',
+        MARKETING_ENDPOINT: '//discord.com',
+        BRAINTREE_KEY: 'production_5st77rrc_49pp2rp4phym7387',
+        STRIPE_KEY: 'pk_live_CUQtlpQUF0vufWpnpUmQvcdi',
+        NETWORKING_ENDPOINT: '//router.discordapp.net',
+        RTC_LATENCY_ENDPOINT: '//latency.discord.media/rtc',
+        ACTIVITY_APPLICATION_HOST: 'discordsays.com',
+        PROJECT_ENV: 'production',
+        REMOTE_AUTH_ENDPOINT: '//remote-auth-gateway.discord.gg',
+        SENTRY_TAGS: {"buildId":"3e9741bc8f872ea667620f373dfa7361d40d625e","buildType":"normal"},
+        MIGRATION_SOURCE_ORIGIN: 'https://discordapp.com',
+        MIGRATION_DESTINATION_ORIGIN: 'https://discord.com',
+        HTML_TIMESTAMP: Date.now(),
+        ALGOLIA_KEY: 'aca0d7082e4e63af5ba5917d5e96bed0',
+      };</script><script nonce="MTg4LDIzMywxMCwzOCwyMDMsMTI0LDEzMCwyNDc=">!function(){if(null!=window.WebSocket){if(function(n){try{var e=localStorage.getItem(n);return null==e?null:JSON.parse(e)}catch(n){return null}}("token")&&!window.__OVERLAY__){var n=null!=window.DiscordNative||null!=window.require?"etf":"json",e=window.GLOBAL_ENV.GATEWAY_ENDPOINT+"/?encoding="+n+"&v="+window.GLOBAL_ENV.API_VERSION+"&compress=zlib-stream";console.log("[FAST CONNECT] connecting to: "+e);var o=new WebSocket(e);o.binaryType="arraybuffer";var t=Date.now(),i={open:!1,identify:!1,gateway:e,messages:[]};o.onopen=function(){console.log("[FAST CONNECT] connected in "+(Date.now()-t)+"ms"),i.open=!0},o.onclose=o.onerror=function(){window._ws=null},o.onmessage=function(n){i.messages.push(n)},window._ws={ws:o,state:i}}}}();</script><link rel="prefetch" as="script" href="/assets/e02290aaa8dac5d195c2.js"></link><link rel="prefetch" as="script" href="/assets/b4499d2a6b9046b1b402.js"></link><link rel="prefetch" as="script" href="/assets/4b58fa778cc38e586a72.js"></link><link rel="prefetch" as="script" href="/assets/4b582ee1842099625350.js"></link><link rel="prefetch" as="script" href="/assets/38c96749096ac4dbb7f0.js"></link><link rel="prefetch" as="script" href="/assets/969413679de40b9126e0.js"></link><link rel="prefetch" as="script" href="/assets/89c07f6464c4df65e564.js"></link><link rel="prefetch" as="script" href="/assets/dc27e9f8c501ecdfe290.js"></link><link rel="prefetch" as="script" href="/assets/d6e22fa832cf37fe714d.js"></link><link rel="prefetch" as="script" href="/assets/3c3325feeb9e546ccb49.js"></link><link rel="prefetch" as="script" href="/assets/2b4910b6cd2fd1ab016d.js"></link><link rel="prefetch" as="script" href="/assets/8d2eda55fddac6c1d33a.js"></link><link rel="prefetch" as="script" href="/assets/eebf4f03942f2301f69b.js"></link><link rel="prefetch" as="script" href="/assets/a1f5f16a094861ec6adf.js"></link><link rel="prefetch" as="script" href="/assets/d096beea5c932b38c6fa.js"></link><link rel="prefetch" as="script" href="/assets/2d3867e958e47e88104a.js"></link><link rel="prefetch" as="script" href="/assets/2cf66aad2f5fe29327fd.js"></link><link rel="prefetch" as="script" href="/assets/7fea300c56ec94a57220.js"></link><link rel="prefetch" as="script" href="/assets/46429fa52d446195e526.js"></link><link rel="prefetch" as="script" href="/assets/333280bb4dcdb11aec24.js"></link><link rel="prefetch" as="script" href="/assets/829fea82c38be7177a11.js"></link><link rel="prefetch" as="script" href="/assets/66d04738a7fb759d2656.js"></link><link rel="prefetch" as="script" href="/assets/4d9f1df159179a4c2e91.js"></link><link rel="prefetch" as="script" href="/assets/508ebf8fd09e4d7dfc8d.js"></link><link rel="prefetch" as="script" href="/assets/bee07f3a5c565c60793c.js"></link><link rel="prefetch" as="script" href="/assets/04b6e764f047c642e9ec.js"></link><link rel="prefetch" as="script" href="/assets/98ace94cfa9f17fcf2d9.js"></link><link rel="prefetch" as="script" href="/assets/c7f23c21f324407b775e.js"></link><link rel="prefetch" as="script" href="/assets/9c4b2d313c6e1c864e89.js"></link><link rel="prefetch" as="script" href="/assets/1312141aadbb0db546ba.js"></link><link rel="prefetch" as="script" href="/assets/2bbcc08cac2c9a5c33f2.js"></link><link rel="prefetch" as="script" href="/assets/ecaf785bc6925815b071.js"></link><link rel="prefetch" as="script" href="/assets/ea0a21be971880ff6c6c.js"></link><link rel="prefetch" as="script" href="/assets/a5c2c9470601e8560717.js"></link><link rel="prefetch" as="script" href="/assets/aea432f8f5f3309ad87e.js"></link><link rel="prefetch" as="script" href="/assets/3ad533c40f6819ead25e.js"></link><link rel="prefetch" as="script" href="/assets/9ad6610fbedc218dde60.js"></link><link rel="prefetch" as="script" href="/assets/26c071d7282d6c654254.js"></link><link rel="prefetch" as="script" href="/assets/6e98d426b375ee024fd2.js"></link><link rel="prefetch" as="script" href="/assets/fdb805b74dfafd472d48.js"></link><link rel="prefetch" as="script" href="/assets/d6d60439a57f2edd54ac.js"></link><link rel="prefetch" as="script" href="/assets/3d5204dc59667b880802.js"></link><link rel="prefetch" as="script" href="/assets/0a5d08252796c4d9bc4c.js"></link><link rel="stylesheet" href="/assets/40532.ccd7077c8311c798fcff.css" integrity="sha256-Q3TVHjDGBUmPd1QlmoXuWOmLbMcOfVqvW3s2awHcZAo= sha512-NL8uDFLa3pigTrnSfCR+5qnYbrNaKyLmgD3ZxbmPu0E2F8q4p7PZbaSEsrOaacBzdUnQcqYukdcgyFbDOYkGpw=="><link rel="icon" href="/assets/ec2c34cadd4b5f4594415127380a85e6.ico" />    <!-- section:title -->
+    <title>Discord</title>
+    <!-- endsection -->
+  <script async nonce="MTg4LDIzMywxMCwzOCwyMDMsMTI0LDEzMCwyNDc=" src='/cdn-cgi/bm/cv/669835187/api.js'></script></head>
+  <body>
+    <div id="app-mount"></div><script nonce="MTg4LDIzMywxMCwzOCwyMDMsMTI0LDEzMCwyNDc=">window.__OVERLAY__ = /overlay/.test(location.pathname)</script><script nonce="MTg4LDIzMywxMCwzOCwyMDMsMTI0LDEzMCwyNDc=">window.__BILLING_STANDALONE__ = /^\/billing/.test(location.pathname)</script><script src="/assets/83ace7450e110d16319e.js" integrity="sha256-Ep5o+vc5D2dpf0kDYG0GcMqo/ptB3kR67mJqOaJSQ1U= sha512-5sJmLWpDvxFAKL5Gbwq1/GzeTmeHlqYv8OheK+FAasvzXDPBwVl3j8V/7v9FdjfnrMI7K8LJ+zj8ue/KErmbsg=="></script><script src="/assets/e02290aaa8dac5d195c2.js" integrity="sha256-iQgerhiTZRZ91HFyBlD7bEDQTSCNIzCtS/OnTW9dwN0= sha512-vpMzCBJfIZexKO+BmatwT/1AQmpmB2DQhTHTMKkIjYHyT2mfcd64jRPholOWuw34lCpkgYnpW2Y6zUT+9OBrGw=="></script><script src="/assets/4f3b3c576b879a5f75d1.js" integrity="sha256-ikio4eVDo2AXAiWUMfJA5nFwK365ZqWEyv2t5h/5ig0= sha512-NsBgzUnuxPb6Ti9uhrkipEV1UtqYXeMJIqRVJ4IR8ytCoDL7WAIBLmLQHUxpEYAdhY4gmSIQqlVhR7cx8d4+oA=="></script><script src="/assets/699456246fdfe7589855.js" integrity="sha256-16kCZ9JIkYt+8420PQXT8Od9dmU6ilMHYyydxLeiWMk= sha512-kKTu/PSfHAUCv4WLUgPb7Tk/vTrWRrv/WYq3x5k1ClstgQyx48mOoIlgwGk7EjL222rOGvIJDwNrEA4QIt/FbA=="></script>  <script nonce="MTg4LDIzMywxMCwzOCwyMDMsMTI0LDEzMCwyNDc=" type="text/javascript">(function(){window['__CF$cv$params']={r:'7248a82b0f5d9867',m:'0PwmNMqfMGCHQ3uiGirlWRuteNK07Tx1JnkYuyES0Wg-1656778282-0-AWev4KU+lxLa7M1O9ogydBKls+pwOgrPbxvLV/qWlX7tqexuyWinmbH17ZyAVlmo84qqe2Bd7aetAMMyXZecXqrRwwjVcQygT7aX2Ka0c1HXaL1zq4JpUc/QVSl3lbsZXg==',s:[0x60b1f75d52,0x6239c30e77],}})();</script></body>
+</html>

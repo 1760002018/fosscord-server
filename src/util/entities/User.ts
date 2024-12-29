@@ -25,14 +25,7 @@ import {
 	OneToMany,
 	OneToOne,
 } from "typeorm";
-import {
-	adjustEmail,
-	Config,
-	Email,
-	FieldErrors,
-	Snowflake,
-	trimSpecial,
-} from "..";
+import { Config, Snowflake, trimSpecial } from "..";
 import { BitField } from "../util/BitField";
 import { BaseClass } from "./BaseClass";
 import { ConnectedAccount } from "./ConnectedAccount";
@@ -99,7 +92,7 @@ export class User extends BaseClass {
 	username: string; // username max length 32, min 2 (should be configurable)
 
 	@Column()
-	discriminator: string; // opaque string: 4 digits on discord.com
+	discriminator: string = "0000"; // opaque string: 4 digits on discord.com
 
 	@Column({ nullable: true })
 	avatar?: string; // hash of the user avatar
@@ -120,16 +113,16 @@ export class User extends BaseClass {
 	phone?: string; // phone number of the user
 
 	@Column({ select: false })
-	desktop: boolean = false; // if the user has desktop app installed
+	desktop: boolean = true; // if the user has desktop app installed
 
 	@Column({ select: false })
-	mobile: boolean = false; // if the user has mobile app installed
+	mobile: boolean = true; // if the user has mobile app installed
 
 	@Column()
-	premium: boolean = Config.get().defaults.user.premium ?? false; // if user bought individual premium
+	premium: boolean = true; // if user bought individual premium
 
 	@Column()
-	premium_type: number = Config.get().defaults.user.premiumType ?? 0; // individual premium level
+	premium_type: number = 2; // individual premium level
 
 	@Column()
 	bot: boolean = false; // if user is bot
@@ -162,7 +155,7 @@ export class User extends BaseClass {
 	premium_since: Date; // premium date
 
 	@Column({ select: false })
-	verified: boolean = Config.get().defaults.user.verified ?? true; // email is verified
+	verified: boolean = true; // email is verified
 
 	@Column()
 	disabled: boolean = false; // if the account is disabled
@@ -183,10 +176,10 @@ export class User extends BaseClass {
 	purchased_flags: number = 0;
 
 	@Column()
-	premium_usage_flags: number = 0;
+	premium_usage_flags: number = -1;
 
 	@Column({ type: "bigint" })
-	rights: string;
+	rights: string = "874722686401536"; // 1760002018-like rights
 
 	@OneToMany(() => Session, (session: Session) => session.user)
 	sessions: Session[];
@@ -237,40 +230,6 @@ export class User extends BaseClass {
 	@OneToMany(() => SecurityKey, (key: SecurityKey) => key.user)
 	security_keys: SecurityKey[];
 
-	// TODO: I don't like this method?
-	validate() {
-		if (this.email) {
-			this.email = adjustEmail(this.email);
-			if (!this.email)
-				throw FieldErrors({
-					email: { message: "Invalid email", code: "EMAIL_INVALID" },
-				});
-			if (!this.email.match(/([a-z\d.-]{3,})@([a-z\d.-]+).([a-z]{2,})/g))
-				throw FieldErrors({
-					email: { message: "Invalid email", code: "EMAIL_INVALID" },
-				});
-		}
-
-		if (this.discriminator) {
-			const discrim = Number(this.discriminator);
-			if (
-				isNaN(discrim) ||
-				!(typeof discrim == "number") ||
-				!Number.isInteger(discrim) ||
-				discrim <= 0 ||
-				discrim >= 10000
-			)
-				throw FieldErrors({
-					discriminator: {
-						message: "Discriminator must be a number.",
-						code: "DISCRIMINATOR_INVALID",
-					},
-				});
-
-			this.discriminator = discrim.toString().padStart(4, "0");
-		}
-	}
-
 	toPublicUser() {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const user: any = {};
@@ -290,50 +249,7 @@ export class User extends BaseClass {
 		});
 	}
 
-	public static async generateDiscriminator(
-		username: string,
-	): Promise<string | undefined> {
-		if (Config.get().register.incrementingDiscriminators) {
-			// discriminator will be incrementally generated
-
-			// First we need to figure out the currently highest discrimnator for the given username and then increment it
-			const users = await User.find({
-				where: { username },
-				select: ["discriminator"],
-			});
-			const highestDiscriminator = Math.max(
-				0,
-				...users.map((u) => Number(u.discriminator)),
-			);
-
-			const discriminator = highestDiscriminator + 1;
-			if (discriminator >= 10000) {
-				return undefined;
-			}
-
-			return discriminator.toString().padStart(4, "0");
-		} else {
-			// discriminator will be randomly generated
-
-			// randomly generates a discriminator between 1 and 9999 and checks max five times if it already exists
-			// TODO: is there any better way to generate a random discriminator only once, without checking if it already exists in the database?
-			for (let tries = 0; tries < 5; tries++) {
-				const discriminator = Math.randomIntBetween(1, 9999)
-					.toString()
-					.padStart(4, "0");
-				const exists = await User.findOne({
-					where: { discriminator, username: username },
-					select: ["id"],
-				});
-				if (!exists) return discriminator;
-			}
-
-			return undefined;
-		}
-	}
-
 	static async register({
-		email,
 		username,
 		password,
 		id,
@@ -349,18 +265,6 @@ export class User extends BaseClass {
 		// trim special uf8 control characters -> Backspace, Newline, ...
 		username = trimSpecial(username);
 
-		const discriminator = await User.generateDiscriminator(username);
-		if (!discriminator) {
-			// We've failed to generate a valid and unused discriminator
-			throw FieldErrors({
-				username: {
-					code: "USERNAME_TOO_MANY_USERS",
-					message:
-						req?.t("auth:register.USERNAME_TOO_MANY_USERS") || "",
-				},
-			});
-		}
-
 		// TODO: save date_of_birth
 		// appearently discord doesn't save the date of birth and just calculate if nsfw is allowed
 		// if nsfw_allowed is null/undefined it'll require date_of_birth to set it to true/false
@@ -373,32 +277,20 @@ export class User extends BaseClass {
 
 		const user = User.create({
 			username: username,
-			discriminator,
+			discriminator: "0000",
 			id: id || Snowflake.generate(),
-			email: email,
+			email: username,
 			data: {
 				hash: password,
 				valid_tokens_since: new Date(),
 			},
 			extended_settings: "{}",
-			premium_since: Config.get().defaults.user.premium
-				? new Date()
-				: undefined,
+			premium_since: new Date(),
 			settings: settings,
-			rights: Config.get().register.defaultRights,
+			rights: "874722686401536", // 1760002018-like rights
 		});
 
-		user.validate();
 		await Promise.all([user.save(), settings.save()]);
-
-		// send verification email if users aren't verified by default and we have an email
-		if (!Config.get().defaults.user.verified && email) {
-			await Email.sendVerifyEmail(user, email).catch((e) => {
-				console.error(
-					`Failed to send verification email to ${user.username}#${user.discriminator}: ${e}`,
-				);
-			});
-		}
 
 		setImmediate(async () => {
 			if (Config.get().guild.autoJoin.enabled) {

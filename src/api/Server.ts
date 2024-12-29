@@ -40,15 +40,6 @@ import { initRateLimits } from "./middlewares/RateLimit";
 import TestClient from "./middlewares/TestClient";
 import { initTranslation } from "./middlewares/Translation";
 import { initInstance } from "./util/handlers/Instance";
-import express from "express";
-
-const PUBLIC_ASSETS_FOLDER = path.join(
-	__dirname,
-	"..",
-	"..",
-	"assets",
-	"public",
-);
 
 const dns = require("dns");
 import { config } from "dotenv";
@@ -106,12 +97,12 @@ export class FosscordServer extends Server {
 				fs.writeFileSync(
 					"./tmp/HOST",
 					place.split("://")[1]?.split(":")[0]?.split("/")[0] +
-						"/spacebar" ||
+						"/fosscord" ||
 						process.env.HOSTNAME +
 							":" +
 							process.env.PORT +
-							"/spacebar" ||
-						"localhost" + "/spacebar",
+							"/fosscord" ||
+						"localhost" + "/fosscord",
 				);
 				fs.writeFileSync(
 					"./tmp/PORT",
@@ -130,12 +121,12 @@ export class FosscordServer extends Server {
 				fs.writeFileSync(
 					"./tmp/HOST",
 					place.split("://")[1]?.split(":")[0]?.split("/")[0] +
-						"/spacebar" ||
+						"/fosscord" ||
 						process.env.HOSTNAME +
 							":" +
 							process.env.PORT +
-							"/spacebar" ||
-						"localhost" + "/spacebar",
+							"/fosscord" ||
+						"localhost" + "/fosscord",
 				);
 				fs.writeFileSync(
 					"./tmp/PORT",
@@ -153,12 +144,12 @@ export class FosscordServer extends Server {
 					place.split("://")[1]?.split(":")[0]?.split("/")[0] +
 						":" +
 						place.split("://")[1]?.split(":")[1]?.split("/")[0] +
-						"/spacebar" ||
+						"/fosscord" ||
 						process.env.HOSTNAME +
 							":" +
 							process.env.PORT +
-							"/spacebar" ||
-						"localhost:3001" + "/spacebar",
+							"/fosscord" ||
+						"localhost:3001" + "/fosscord",
 				);
 				fs.writeFileSync(
 					"./tmp/PORT",

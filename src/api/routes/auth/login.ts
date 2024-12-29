@@ -18,7 +18,6 @@
 
 import { getIpAdress, route, verifyCaptcha } from "@fosscord/api";
 import {
-	adjustEmail,
 	Config,
 	FieldErrors,
 	generateToken,
@@ -40,7 +39,6 @@ router.post(
 	async (req: Request, res: Response) => {
 		const { login, password, captcha_key, undelete } =
 			req.body as LoginSchema;
-		const email = adjustEmail(login);
 
 		const config = Config.get();
 
@@ -66,7 +64,7 @@ router.post(
 		}
 
 		const user = await User.findOneOrFail({
-			where: [{ phone: login }, { email: email }],
+			where: [{ phone: login }, { email: login }],
 			select: [
 				"data",
 				"id",

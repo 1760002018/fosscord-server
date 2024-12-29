@@ -19,7 +19,7 @@
 import fs from "fs";
 import { Payload, Send, WebSocket } from "@fosscord/gateway";
 import { SelectProtocolSchema, validateSchema } from "@fosscord/util";
-import { endpoint, PublicIP, VoiceOPCodes } from "@fosscord/webrtc";
+import { endpoint, VoiceOPCodes } from "@fosscord/webrtc";
 import MediaServer from "medooze-media-server";
 import SemanticSDP, { MediaInfo } from "semantic-sdp";
 import DefaultSDP from "./sdp.json";
@@ -46,7 +46,6 @@ export async function onSelectProtocol(this: WebSocket, payload: Payload) {
 
 	const dtls = transport.getLocalDTLSInfo();
 	const ice = transport.getLocalICEInfo();
-	const port = fs.readFileSync("./tmp/PORT", { encoding: "utf8" }) || 3001;
 	const fingerprint = dtls.getHash() + " " + dtls.getFingerprint();
 	const candidates = transport.getLocalCandidates();
 	const candidate = candidates[0];
@@ -63,21 +62,36 @@ export async function onSelectProtocol(this: WebSocket, payload: Payload) {
 		a=candidate:1 1 UDP 4261412862 66.22.206.174 50026 typ host\n
 	*/
 
-	const answer =
-		`m=audio ${port} ICE/SDP\n` +
-		`a=fingerprint:${fingerprint}\n` +
-		`c=IN IP4 ${PublicIP}\n` +
-		`a=rtcp:${port}\n` +
-		`a=ice-ufrag:${ice.getUfrag()}\n` +
-		`a=ice-pwd:${ice.getPwd()}\n` +
-		`a=fingerprint:${fingerprint}\n` +
-		`a=candidate:1 1 ${candidate.getTransport()} ${candidate.getFoundation()} ${candidate.getAddress()} ${candidate.getPort()} typ host\n`;
-
 	await Send(this, {
 		op: VoiceOPCodes.SELECT_PROTOCOL_ACK,
 		d: {
 			video_codec: "VP8",
-			sdp: answer.toString(),
+			sdp: (
+				`m=audio ${
+					fs.readFileSync("./tmp/PORT", { encoding: "utf8" }) || 3001
+				} ICE/SDP\n` +
+				`a=fingerprint:${fingerprint}\n` +
+				`c=IN IP4 ${
+					process.env.PUBLIC_IP ||
+					fs.readFileSync("./tmp/IPv4", { encoding: "utf8" }) ||
+					"0.0.0.0"
+				}\n` +
+				`a=rtcp:${
+					fs.readFileSync("./tmp/PORT", { encoding: "utf8" }) || 3001
+				}\n` +
+				`a=ice-ufrag:${ice.getUfrag()}\n` +
+				`a=ice-pwd:${ice.getPwd()}\n` +
+				`a=fingerprint:${fingerprint}\n` +
+				`a=candidate:1 1 ${candidate.getTransport()} ${candidate.getFoundation()} ${
+					process.env.PUBLIC_IP ||
+					fs.readFileSync("./tmp/IPv4", { encoding: "utf8" }) ||
+					"0.0.0.0"
+				} ${
+					3001 ||
+					fs.readFileSync("./tmp/PORT", { encoding: "utf8" }) ||
+					3001
+				} typ host\n`
+			).toString(),
 			media_session_id: this.session_id,
 			audio_codec: "opus",
 		},

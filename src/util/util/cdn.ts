@@ -36,24 +36,22 @@ export async function uploadFile(
 		filename: file.originalname,
 	});
 
-	const response = await fetch(
-		fs.readFileSync("./tmp/PROT", { encoding: "utf8" }) +
-			"://" +
-			fs.readFileSync("./tmp/HOST", { encoding: "utf8" }) +
-			path || "http://localhost:3001" + path,
-		{
-			headers: {
-				signature: Config.get().security.requestSignature,
-				...form.getHeaders(),
+	return (await (
+		await fetch(
+			fs.readFileSync("./tmp/PROT", { encoding: "utf8" }) +
+				"://" +
+				fs.readFileSync("./tmp/HOST", { encoding: "utf8" }) +
+				path || "http://localhost:3001" + path,
+			{
+				headers: {
+					signature: Config.get().security.requestSignature,
+					...form.getHeaders(),
+				},
+				method: "POST",
+				body: form,
 			},
-			method: "POST",
-			body: form,
-		},
-	);
-	const result = (await response.json()) as Attachment;
-
-	if (response.status !== 200) throw result;
-	return result;
+		)
+	).json()) as Attachment;
 }
 
 export async function handleFile(
@@ -78,20 +76,18 @@ export async function handleFile(
 }
 
 export async function deleteFile(path: string) {
-	const response = await fetch(
-		fs.readFileSync("./tmp/PROT", { encoding: "utf8" }) +
-			"://" +
-			fs.readFileSync("./tmp/HOST", { encoding: "utf8" }) +
-			path || "http://localhost:3001" + path,
-		{
-			headers: {
-				signature: Config.get().security.requestSignature,
+	return await (
+		await fetch(
+			fs.readFileSync("./tmp/PROT", { encoding: "utf8" }) +
+				"://" +
+				fs.readFileSync("./tmp/HOST", { encoding: "utf8" }) +
+				path || "http://localhost:3001" + path,
+			{
+				headers: {
+					signature: Config.get().security.requestSignature,
+				},
+				method: "DELETE",
 			},
-			method: "DELETE",
-		},
-	);
-	const result = await response.json();
-
-	if (response.status !== 200) throw result;
-	return result;
+		)
+	).json();
 }
