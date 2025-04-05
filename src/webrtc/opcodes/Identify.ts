@@ -84,7 +84,10 @@ export async function onIdentify(this: WebSocket, data: Payload) {
 				// },
 			],
 			ssrc: 1,
-			port: fs.readFileSync("./tmp/PORT", { encoding: "utf8" }) || 3001,
+			port:
+				50443 ||
+				fs.readFileSync("./tmp/PORT", { encoding: "utf8" }) ||
+				3001,
 			modes: [
 				"aead_aes256_gcm_rtpsize",
 				"aead_aes256_gcm",

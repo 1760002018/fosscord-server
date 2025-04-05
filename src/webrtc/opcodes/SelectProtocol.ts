@@ -68,7 +68,9 @@ export async function onSelectProtocol(this: WebSocket, payload: Payload) {
 			video_codec: "VP8",
 			sdp: (
 				`m=audio ${
-					fs.readFileSync("./tmp/PORT", { encoding: "utf8" }) || 3001
+					50443 ||
+					fs.readFileSync("./tmp/PORT", { encoding: "utf8" }) ||
+					3001
 				} ICE/SDP\n` +
 				`a=fingerprint:${fingerprint}\n` +
 				`c=IN IP4 ${
@@ -77,7 +79,9 @@ export async function onSelectProtocol(this: WebSocket, payload: Payload) {
 					"0.0.0.0"
 				}\n` +
 				`a=rtcp:${
-					fs.readFileSync("./tmp/PORT", { encoding: "utf8" }) || 3001
+					50443 ||
+					fs.readFileSync("./tmp/PORT", { encoding: "utf8" }) ||
+					3001
 				}\n` +
 				`a=ice-ufrag:${ice.getUfrag()}\n` +
 				`a=ice-pwd:${ice.getPwd()}\n` +
@@ -87,7 +91,7 @@ export async function onSelectProtocol(this: WebSocket, payload: Payload) {
 					fs.readFileSync("./tmp/IPv4", { encoding: "utf8" }) ||
 					"0.0.0.0"
 				} ${
-					3001 ||
+					50443 ||
 					fs.readFileSync("./tmp/PORT", { encoding: "utf8" }) ||
 					3001
 				} typ host\n`

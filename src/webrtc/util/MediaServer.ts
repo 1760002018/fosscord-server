@@ -24,9 +24,14 @@ import MediaServer, {
 	Transport,
 } from "medooze-media-server";
 import SemanticSDP from "semantic-sdp";
+import { config } from "dotenv";
 MediaServer.enableLog(true);
+config();
 
-MediaServer.setPortRange(3001, 3001);
+MediaServer.setPortRange(
+	50443 || Number(process.env.PORT) || 3001,
+	50443 || Number(process.env.PORT) || 3001,
+);
 
 export const endpoint = MediaServer.createEndpoint("0.0.0.0");
 

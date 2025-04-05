@@ -66,12 +66,7 @@ router.post(
 			content_type: mimetype,
 			filename: filename,
 			size,
-			url: `${
-				fs.readFileSync("./tmp/PROT", { encoding: "utf8" }) +
-					"://" +
-					fs.readFileSync("./tmp/HOST", { encoding: "utf8" }) ||
-				"http://localhost:3001"
-			}/${path}`,
+			url: "/" + path,
 			width,
 			height,
 		});
