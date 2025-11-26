@@ -33,6 +33,8 @@ export async function onSelectProtocol(this: WebSocket, payload: Payload) {
 	) as SelectProtocolSchema;
 
 	const offer = SemanticSDP.SDPInfo.parse("m=audio\n" + data.sdp);
+	this.webrtcClient.sdp.getMedias()[0].addCodec(offer.getMedias()[0].getCodec("opus"));
+	this.webrtcClient.sdp.getMedias()[1].addCodec(offer.getMedias()[0].getCodec("vp8"));
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 	//@ts-ignore
 	offer.getMedias()[0].type = "audio"; // this is bad, but answer.toString() fails otherwise
